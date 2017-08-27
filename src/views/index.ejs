@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ログイン画面</title>
     <!-- BootstrapのCSS読み込み -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery読み込み -->
     <script src="libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
   </head>
   <body>
 
@@ -63,7 +63,7 @@
   </div>
 </div>
 table-borderedで枠線 -->
-    <h1 class="text-center" style="font-family:cursive"><p><img src="img/icon_32.png"/>totoSmash!</p></h1>
+    <h1 class="text-center" style="font-family:cursive"><p><img src="images/icon_32.png"/>totoSmash!</p></h1>
 <!-- ボタンサンプル
 <button type="button" class="btn btn-default btn-lg">Default(large)</button>
 <button type="button" class="btn btn-primary btn-lg">Primary</button>
@@ -78,11 +78,11 @@ table-borderedで枠線 -->
 <!--フォームサンプル
 -->
 <div class="container">
-    <form class="form-horizontal" method="post" action="TS/TST001V01.html">
+    <form class="form-horizontal" method="post" action="/TS/TST001V01">
         <div class="form-group">
             <label for="inputId" class="control-label col-sm-2" >ＩＤ</label>
             <div class="col-sm-10">
-                <input type="email" name="inputId" placeholder="ID" class="form-control">
+                <input type="text" name="inputId" placeholder="ID" class="form-control">
             </div>
         </div>
         <div class="form-group">
@@ -96,7 +96,7 @@ table-borderedで枠線 -->
                 <button type="submit" class="btn btn-success">ログイン
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
-                <a href="TS/TSL001V02.html" class="btn btn-link">ID/パスワードを忘れた方はこちら</a>
+                <a href="/TS/TSL001V02" class="btn btn-link">ID/パスワードを忘れた方はこちら</a>
             </div>
         </div>
     </form>

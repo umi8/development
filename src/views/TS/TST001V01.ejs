@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>トップページ</title>
     <!-- BootstrapのCSS読み込み -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery読み込み -->
     <script src="../libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../javascripts/bootstrap.min.js"></script>
   </head>
   <body>
 
@@ -29,29 +29,29 @@
 
 <div class="container">
 
-    <p class="text-right">Ｕ研太郎さんの保有ポイント：200</p>
+    <p class="text-right"><%= locals.inputId %>さんの保有ポイント：<%= locals.myPoints %></p>
     <p class="text-right" style="position:relative;">Bet中：
-    <img src="../img/sport_tennis_ball.png" width="32" height="32">
+    <img src="../images/sport_tennis_ball.png" width="32" height="32">
     <a href="" style="position:absolute;right:12px;top:6px;color:green;">4</a></p>
     <p class="text-right" style="position:relative;">結果未確認：
-    <img src="../img/sport_tennis_ball.png" width="32" height="32">
+    <img src="../images/sport_tennis_ball.png" width="32" height="32">
     <a href="" style="position:absolute;right:12px;top:6px;color:green;">2</a></p>
     <form>
 
         <div class="btn-group btn-group-justified" role="group">
-        <a href="TSB001V01.html" class="btn btn-info btn-lg">ＢＥＴ</a>
-        <a href="TSR001V01.html" class="btn btn-warning btn-lg">結果確認</a>
+        <a href="/TS/TSB001V02" class="btn btn-info btn-lg">ＢＥＴ</a>
+        <a href="/TS/TSR001V01" class="btn btn-warning btn-lg">結果確認</a>
         </div>
 
         <div class="btn-group btn-group-justified" role="group">
-        <a href="TSE001V01.html" class="btn btn-primary btn-lg">ポイント購入</a>
-        <a href="TSU001V01.html" class="btn btn-success btn-lg">ポイント使用</a>
+        <a href="/TS/TSE001V01" class="btn btn-primary btn-lg">ポイント購入</a>
+        <a href="/TS/TSU001V01" class="btn btn-success btn-lg">ポイント使用</a>
         </div>
 
         <div class="btn-group btn-group-justified" role="group">
-        <a href="TSP001V01.html" class="btn btn-default btn-lg">個人設定</a>
+        <a href="/TS/TSP001V01" class="btn btn-default btn-lg">個人設定</a>
         </div>
-        <a href="../index.html" class="btn btn-link">ログアウト</a>
+        <a href="/" class="btn btn-link">ログアウト</a>
     </form>
 </div>
 
