@@ -1,4 +1,45 @@
+.container {
+  max-width: 800px; /* Å‘å‰¡• */
+  width: 100%;
+  margin: 0 auto;
+}
+
 .navbar-default .navbar-brand {
   color: #dfe029;
 }
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #FFFFFF;
+  background-color: transparent;
+}
 
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #dfe029;
+}
+
+
+.navbar-default .navbar-nav > li > a {
+    color: #dfe029;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #FFFFFF;
+  background-color: transparent;
+}
+
+.match-list {
+  background-color: #FFF;
+  padding: 10px 15px;
+}
+
+.match-list-player {
+  padding: 5px 0px;
+  font-size: 18px;
+}
+.match-list-bet {
+  padding: 5px 20px;
+}
+
+.modal-dialog-center {
+  top: 20%;
+}

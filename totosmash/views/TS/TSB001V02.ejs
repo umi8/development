@@ -33,7 +33,7 @@
                 <ul class="nav navbar-nav navbar-right">
                   <li><a href="/TS/TSE001V01">ポイント購入</a></li>
                   <li><a href="/TS/TSU001V01">ポイント使用</a></li>
-                  <li><a href="/TS/TSB001V01">BET</a></li>
+                  <li><a href="/TS/TSB001V02">BET</a></li>
                   <li><a href="/TS/TSR001V01">結果確認</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="/TS/TSP001V01">個人設定</a></li>
@@ -47,9 +47,9 @@
 <div class="container">
 
   <!-- 1試合目 -->
-  <div class="list-group">
-    <a href="/TS/TSB001V03" class="list-group-item">
-      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 15, 2017</span></h4>
+  <div class="list-group match-list">
+    <!--<a href="/TS/TSB001V03" class="list-group-item">-->
+      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 17, 2017</span></h4>
         <div class="row" style="margin-bottom:5px;">
           <div class="col-xs-5 text-center">
             <img src="../images/player1.png"  class="img-circle" style="width:80%; position:relative;"/>
@@ -62,25 +62,66 @@
           </div>
         </div>
         <div class="row" style="margin-bottom:15px;">
-          <div class="col-xs-5 text-center">
+          <div class="col-xs-5 text-center match-list-player">
             <span>K. Nishikori</span>
           </div>
-          <div class="col-xs-2 text-center">
+          <div class="col-xs-2 text-center match-list-player">
           </div>
-          <div class="col-xs-5 text-center">
+          <div class="col-xs-5 text-center match-list-player">
             <span>R. Nadal</span>
           </div>
+          <div class="col-xs-5 text-center match-list-bet">
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="nishikori" data-player="K. Nishikori">BET</button>
+          </div>
+          <div class="col-xs-2 text-center match-list-bet">
+          </div>
+          <div class="col-xs-5 text-center match-list-bet">
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="nadal" data-player="R. Nadal">BET</button>
+          </div>
         </div>
-    </a>
+    <!--</a>-->
+    <!--
     <div class="row">
       <div class="col-xs-12 text-center"><a href="/TS/TSB001V04" class="btn btn-primary btn-block" role="button">ボール選択</a></div>
     </div>
+    -->
   </div>
 
+
+            <!-- 2.モーダルの配置 -->
+            <div class="modal" id="modal-bet" tabindex="-1">
+                <div class="modal-dialog modal-dialog-center">
+                    <!-- 3.モーダルのコンテンツ -->
+                    <div class="modal-content">
+                        <!-- 4.モーダルのヘッダ -->
+                        <!--
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="modal-label"></h4>
+                        </div>
+                        -->
+                        <!-- 5.モーダルのボディ -->
+                        <div class="modal-body">
+                            日程：Nov. 17, 2017<br>
+                            対戦：K. Nishikori VS R. Nadal<br>
+                            <br>
+                            「<span id="bet_player"></span>選手の勝ち」にBETしますか？
+                        </div>
+                        <!-- 6.モーダルのフッタ -->
+                        <div class="modal-footer" style="text-align:center;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">やめる</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="bet_yes">BET</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
   <!-- 2試合目 -->
-  <div class="list-group">
-    <a href="/TS/TSB001V03" class="list-group-item">
-      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 15, 2017</span></h4>
+  <div class="list-group match-list">
+    <!--<a href="/TS/TSB001V03" class="list-group-item">-->
+      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 17, 2017</span></h4>
         <div class="row" style="margin-bottom:5px;">
           <div class="col-xs-5 text-center">
             <img src="../images/player1.png"  class="img-circle" style="width:80%; position:relative;"/>
@@ -93,26 +134,67 @@
           </div>
         </div>
         <div class="row" style="margin-bottom:15px;">
-          <div class="col-xs-5 text-center">
+          <div class="col-xs-5 text-center match-list-player">
             <span>R. Federer</span>
           </div>
-          <div class="col-xs-2 text-center">
+          <div class="col-xs-2 text-center match-list-player">
           </div>
-          <div class="col-xs-5 text-center">
+          <div class="col-xs-5 text-center match-list-player">
             <span>N. Đoković</span>
           </div>
+          <div class="col-xs-5 text-center match-list-bet">
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="federer" data-player="R. Federer">BET</button>
+          </div>
+          <div class="col-xs-2 text-center match-list-bet">
+          </div>
+          <div class="col-xs-5 text-center match-list-bet">
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="dokovic" data-player="N. Đoković">BET</button>
+          </div>
         </div>
-    </a>
+    <!--</a>-->
+    <!--
     <div class="row">
       <div class="col-xs-12 text-center"><a href="/TS/TSB001V04" class="btn btn-primary btn-block" role="button">ボール選択</a></div>
     </div>
+    -->
   </div>
 
 
 </div>
 
-  
-<footer>Footer</footer>
+
+         <!-- hidden -->
+         <div id="hiddendiv">
+           <form:form id="hiddenform" action="/TS/TSB001V02">
+           <input id="bet_player_id" name="bet_player_id" type="hidden" value=""/>
+           </form:form>
+         </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#modal-bet').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); //モーダルを呼び出すときに使われたボタンを取得
+    var player = button.data('player'); //data-player の値を取得
+
+    var modal = $(this);  //モーダルを取得
+    var modaltxt = modal.find('#bet_player'); //spanタグに表示
+    $(modaltxt).text(player);
+    
+    var bet_player_id = button.data('whatever');
+    $("#bet_player_id").attr("value",bet_player_id);
+  });
+
+  $('#bet_yes').on('click',function(){
+    $('#hiddenform').submit(); //submitではなく、メソッドを呼び出したい？
+  })
+
+});
+  </script>
+
+
+
+
+<footer></footer>
 
 </body>
 </html>
