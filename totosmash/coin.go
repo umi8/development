@@ -106,9 +106,12 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	var bob = "Bob"
 	var aliceVal = 200
 	var bobVal = 100
+	var userA = "Beppu"
+	var userAVal = 300
 
 	APIstub.PutState(alice, []byte(strconv.Itoa(aliceVal)))
 	APIstub.PutState(bob, []byte(strconv.Itoa(bobVal)))
+	APIstub.PutState(userA, []byte(strconv.Itoa(userAVal)))
 
 	return shim.Success(nil)
 }

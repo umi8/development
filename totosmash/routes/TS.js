@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fc = require('./fabric-coin');
 
 /* POST TS */
 router.post('/', function(req, res, next) {
@@ -35,6 +36,7 @@ console.log(test.hello('Tomohide'));
                                        } });
 
 });
+
 
 
 //////////////////////
@@ -104,6 +106,21 @@ router.get('/TSU001V01', function(req, res, next) {
   res.render('TS/TSU001V01', { title: 'Express' });
 });
 
+
+
+// query
+router.get('/query/:id', function(req, res, next) {
+  var name = req.params.id;
+  var fcq = fc.query('queryValue', name);
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send(result);
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
 
 
 module.exports = router;

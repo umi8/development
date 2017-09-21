@@ -13,6 +13,48 @@
     <script src="../libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="../javascripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready( function(){
+    	$.ajax({	
+    		url:'query/<%= locals.inputId %>', // 通信先のURL
+    		type:'GET',		// 使用するHTTPメソッド (GET/ POST)
+    		data:'', // 送信するデータ
+    		dataType:'text', // 応答のデータの種類 
+    						// (xml/html/script/json/jsonp/text)
+    		timeout:1000, 		// 通信のタイムアウトの設定(ミリ秒)
+
+    		// 2. doneは、通信に成功した時に実行される
+    		//  引数のdata1は、通信で取得したデータ
+    		//  引数のtextStatusは、通信結果のステータス
+    		//  引数のjqXHRは、XMLHttpRequestオブジェクト
+    		}).done(function(data1,textStatus,jqXHR) {
+    				$("#out1").html(jqXHR.status); //jqXHR.statusを表示
+    				$("#out2").html(textStatus); //textStatusを表示
+
+    				// 3. キーを指定して値を表示 
+    				$("#out4").html(data1);
+    				$("#myPoints").html(data1);
+
+    				// 4. オブジェクトをJSON形式の文字列に変換
+    				//var data2 = JSON.stringify(data1);
+    				//console.log(data2); //コンソールにJSON形式で表示される
+
+
+    		// 6. failは、通信に失敗した時に実行される
+    		}).fail(function(jqXHR, textStatus, errorThrown ) {
+    				$("#out1").html(jqXHR.status); //jqXHR.statusを表示
+    				$("#out2").html(textStatus); //textStatusを表示
+    				$("#out3").html(errorThrown); //errorThrownを表示
+
+    		// 7. alwaysは、成功/失敗に関わらず実行される
+    		}).always(function(){
+    				$("#out6").html("complete"); //表示3
+    				
+    	});
+    });
+    </script>
+
   </head>
   <body>
 
@@ -31,7 +73,7 @@
 
 <div class="container">
 
-    <p class="text-right"><%= locals.inputId %>さんの保有ポイント：<%= locals.myPoints %></p>
+    <p class="text-right"><%= locals.inputId %>さんの保有ポイント：<span id="myPoints"></span></p>
     <p class="text-right" style="position:relative;">Bet中：
     <img src="../images/sport_tennis_ball.png" width="32" height="32">
     <a href="" style="position:absolute;right:12px;top:6px;color:green;">4</a></p>
@@ -57,6 +99,14 @@
     </form>
 </div>
 
+<!--
+<p>jqXHR.statusを表示：<span id="out1"></span></p>
+<p>textStatusを表示：<span id="out2"></span></p>
+<p>errorThrownを表示：<span id="out3"></span></p>
+<p>表示1：<span id="out4"></span></p>
+<p>表示2：<span id="out5"></span></p>
+<p>表示3：<span id="out6"></span></p>
+-->
   
 <footer></footer>
 
