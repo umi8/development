@@ -16,9 +16,10 @@ cd development/totosmash
 ./installCoin.sh
 
 ※チェーンコードを更新する場合は 2)は実行せず、3)を実行する
+
+ 3) チェーンコードを更新する
 　引数にはチェーンコードのバージョン番号を指定してください
 　更新するたびにバージョン番号を変える必要があるようです
-
 cd development/totosmash
 ./updateCoin.sh 1.2.0
 
