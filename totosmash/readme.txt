@@ -15,6 +15,14 @@ cp coin.go ~/fabric-samples/chaincode/coin
 cd development/totosmash
 ./installCoin.sh
 
+※チェーンコードを更新する場合は 2)は実行せず、3)を実行する
+　引数にはチェーンコードのバージョン番号を指定してください
+　更新するたびにバージョン番号を変える必要があるようです
+
+cd development/totosmash
+./updateCoin.sh 1.2.0
+
+
 (4) アプリを起動する。
 cd development/totosmash
 npm install
@@ -27,7 +35,10 @@ http://localhost:3000/test-cc/query
 queryValueを実行
 http://localhost:3000/test-cc/query/Alice
 http://localhost:3000/test-cc/query/Bob
+http://localhost:3000/TS/query/Beppu
 
 invokeを実行
 http://localhost:3000/test-cc/send/10
+
+
 
