@@ -43,3 +43,8 @@
 .modal-dialog-center {
   top: 20%;
 }
+
+.match-th {
+  background-color: #808080;
+  color: #FFF;
+}

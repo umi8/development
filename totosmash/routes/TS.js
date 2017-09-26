@@ -41,7 +41,8 @@ console.log(test.hello('Tomohide'));
 
 //////////////////////
 router.post('/TSB001V02', function(req, res, next) {
-  res.render('TS/TSB001V02', { title: 'Express' });
+  res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
+                                       } });
 });
 
 router.post('/TSE001V01', function(req, res, next) {
@@ -75,7 +76,8 @@ router.post('/TSU001V01', function(req, res, next) {
 
 //Get (direct access for layout debug)
 router.get('/TSB001V02', function(req, res, next) {
-  res.render('TS/TSB001V02', { title: 'Express' });
+  res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
+                                       } });
 });
 
 router.get('/TSE001V01', function(req, res, next) {

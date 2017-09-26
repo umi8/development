@@ -20,47 +20,135 @@
 
 <div class="container">
 
-  <!-- 1試合目 -->
-  <div class="list-group match-list">
-    <!--<a href="/TS/TSB001V03" class="list-group-item">-->
-      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 17, 2017</span></h4>
-        <div class="row" style="margin-bottom:5px;">
-          <div class="col-xs-5 text-center">
-            <img src="../images/player1.png"  class="img-circle" style="width:80%; position:relative;"/>
-          </div>
-          <div class="col-xs-2 text-center" style="margin-top:10%;">
-            <span style="font-size: x-large;">VS</span>
-          </div>
-          <div class="col-xs-5 text-center">
-            <img src="../images/player2.png"  class="img-circle" style="width:80%; position:relative;"/>
-          </div>
-        </div>
-        <div class="row" style="margin-bottom:15px;">
-          <div class="col-xs-5 text-center match-list-player">
-            <span>K. Nishikori</span>
-          </div>
-          <div class="col-xs-2 text-center match-list-player">
-          </div>
-          <div class="col-xs-5 text-center match-list-player">
-            <span>R. Nadal</span>
-          </div>
-          <div class="col-xs-5 text-center match-list-bet">
-            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="nishikori" data-player="K. Nishikori">BET</button>
-          </div>
-          <div class="col-xs-2 text-center match-list-bet">
-          </div>
-          <div class="col-xs-5 text-center match-list-bet">
-            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="nadal" data-player="R. Nadal">BET</button>
-          </div>
-        </div>
-    <!--</a>-->
-    <!--
-    <div class="row">
-      <div class="col-xs-12 text-center"><a href="/TS/TSB001V04" class="btn btn-primary btn-block" role="button">ボール選択</a></div>
-    </div>
-    -->
+    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></p>
+
+  <div class="panel table-responsive">
+    <div class="table-responsive">
+      <table class="table">
+        <!-- 1試合目 -->
+        <tr>
+          <th class="match-th">ATP St Petersburg</th>
+          <th class="match-th text-center">1</th>
+          <th class="match-th text-center">2</th>
+        </tr>
+        <tr>
+          <td class="bg-success">Damir Dzumhur</td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success">Liam Broady</td>
+        </tr>
+        
+        <!-- 2試合目 -->
+        <tr>
+          <th class="match-th">WTA B-Con Plaza</th>
+          <th class="match-th text-center">1</th>
+          <th class="match-th text-center">2</th>
+        </tr>
+        <tr>
+          <td class="bg-success">Kei Nishikori</td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Kei Nishikori">BET</button></td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Yuichi Sugita">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success">Yuichi Sugita</td>
+        </tr>
+
+        <!-- 3試合目 -->
+        <tr>
+          <th class="match-th">WTA Guangzhou</th>
+          <th class="match-th text-center">1</th>
+          <th class="match-th text-center">2</th>
+        </tr>
+        <tr>
+          <td class="bg-success">Yanina Wickmayer</td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success">Aleksandra Krunic</td>
+        </tr>
+
+        <!-- 4試合目 -->
+        <tr>
+          <th class="match-th">WTA Tokyo</th>
+          <th class="match-th text-center">1</th>
+          <th class="match-th text-center">2</th>
+        </tr>
+        <tr>
+          <td class="bg-success">Caroline Wozniacki</td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success">Dominika Cibulkova</td>
+        </tr>
+
+      </table>
+    </div><!-- table-responsive -->
   </div>
 
+※↑と↓、どちらが良いか？
+
+  <div class="panel table-responsive">
+    <div class="table-responsive">
+      <table class="table">
+        <!-- 1試合目 -->
+        <tr>
+          <th colspan="2" class="match-th">ATP St Petersburg</th>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Damir Dzumhur</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Liam Broady</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+        </tr>
+
+        <!-- 2試合目 -->
+        <tr>
+          <th colspan="2" class="match-th">WTA B-Con Plaza</th>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Kei Nishikori</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Kei Nishikori">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Yuichi Sugita</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Yuichi Sugita">BET</button></td>
+        </tr>
+
+        <!-- 3試合目 -->
+        <tr>
+          <th colspan="2" class="match-th">WTA Guangzhou</th>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Yanina Wickmayer</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Aleksandra Krunic</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+        </tr>
+
+        <!-- 4試合目 -->
+        <tr>
+          <th colspan="2" class="match-th">WTA Tokyo</th>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Caroline Wozniacki</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
+        </tr>
+        <tr>
+          <td class="bg-success" style="vertical-align:middle;">Dominika Cibulkova</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
+        </tr>
+
+      </table>
+    </div><!-- table-responsive -->
+  </div>
 
             <!-- 2.モーダルの配置 -->
             <div class="modal" id="modal-bet" tabindex="-1">
@@ -78,69 +166,26 @@
                         -->
                         <!-- 5.モーダルのボディ -->
                         <div class="modal-body">
-                            日程：Nov. 17, 2017<br>
-                            対戦：K. Nishikori VS R. Nadal<br>
-                            <br>
-                            「<span id="bet_player"></span>選手の勝ち」にBETしますか？
+                            <span id="bet_player" class="text-primary"></span><br>
+                            Match Winner<br>
+                            Kei Nishikori vs Yuichi Sugita<br>
+                            100 ポイント
                         </div>
                         <!-- 6.モーダルのフッタ -->
                         <div class="modal-footer" style="text-align:center;">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">やめる</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" id="bet_yes">BET</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-  <!-- 2試合目 -->
-  <div class="list-group match-list">
-    <!--<a href="/TS/TSB001V03" class="list-group-item">-->
-      <h4 class="list-group-item-heading text-center" style="margin-bottom:10px;"><span class="label label-default">Nov. 17, 2017</span></h4>
-        <div class="row" style="margin-bottom:5px;">
-          <div class="col-xs-5 text-center">
-            <img src="../images/player1.png"  class="img-circle" style="width:80%; position:relative;"/>
-          </div>
-          <div class="col-xs-2 text-center" style="margin-top:10%;">
-            <span style="font-size: x-large;">VS</span>
-          </div>
-          <div class="col-xs-5 text-center">
-            <img src="../images/player2.png"  class="img-circle" style="width:80%; position:relative;"/>
-          </div>
-        </div>
-        <div class="row" style="margin-bottom:15px;">
-          <div class="col-xs-5 text-center match-list-player">
-            <span>R. Federer</span>
-          </div>
-          <div class="col-xs-2 text-center match-list-player">
-          </div>
-          <div class="col-xs-5 text-center match-list-player">
-            <span>N. Đoković</span>
-          </div>
-          <div class="col-xs-5 text-center match-list-bet">
-            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="federer" data-player="R. Federer">BET</button>
-          </div>
-          <div class="col-xs-2 text-center match-list-bet">
-          </div>
-          <div class="col-xs-5 text-center match-list-bet">
-            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="dokovic" data-player="N. Đoković">BET</button>
-          </div>
-        </div>
-    <!--</a>-->
-    <!--
-    <div class="row">
-      <div class="col-xs-12 text-center"><a href="/TS/TSB001V04" class="btn btn-primary btn-block" role="button">ボール選択</a></div>
-    </div>
-    -->
-  </div>
-
-
-</div>
-
 
          <!-- hidden -->
          <div id="hiddendiv">
            <form:form id="hiddenform" action="/TS/TSB001V02">
-           <input id="bet_player_id" name="bet_player_id" type="hidden" value=""/>
+             <input id="bet_player_id" name="bet_player_id" type="hidden" value=""/>
+             <input id="bet_usre_id" name="bet_user_id" type="hidden" value="<%= locals.inputId %>"/>
            </form:form>
          </div>
 
@@ -159,7 +204,7 @@ $(document).ready(function(){
   });
 
   $('#bet_yes').on('click',function(){
-    $('#hiddenform').submit(); //submitではなく、メソッドを呼び出したい？
+    $('#hiddenform').submit();
   })
 
 });
