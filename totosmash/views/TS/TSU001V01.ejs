@@ -16,41 +16,56 @@
   </head>
   <body>
 
-
-    <!-- navigation -->
-    <div class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/TS/TST001V01"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
-                <a class="navbar-brand" href="/TS/TSB001V02"><b><span>ポイント使用</span></b></a>
-            </div>
-            <div class="navbar-collapse collapse" style="height: 1px;">
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/TS/TSB001V02">BET</a></li>
-                  <li><a href="/TS/TSR001V01">結果確認</a></li>
-                  <li><a href="/TS/TSE001V01">ポイント購入</a></li>
-                  <li><a href="/TS/TSU001V01">ポイント使用</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="/TS/TSP001V01">個人設定</a></li>
-                  <li><a href="/">ログアウト</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-    </div>
+<%- include('menu', {pageTitle:'ポイント使用', pageUrl:'/TS/TSU001V01'}) %>
 
 <div class="container">
 
-ポイント使用の画面を作ります
+
+    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></p>
+
+  <div class="panel table-responsive">
+    <div>
+      <table class="table">
+        <tr>
+          <td class="match-td col-xs-4 text-center" rowspan="2">ロゴ</td>
+          <td class="match-td col-xs-8"><a href="" style="font-size:120%; color:#01a108; font-weight:bold;">赤十字団体に寄付</a></td>
+        </tr>
+        <tr>
+          <td class="match-td">被災地の復興支援団体に寄付します</td>
+        </tr>
+
+        <tr>
+          <td class="match-td col-xs-4 text-center" rowspan="2">ロゴ</td>
+          <td class="match-td col-xs-8"><a href="" style="font-size:120%; color:#01a108; font-weight:bold;">薬天スーパーポイントに交換</a></td>
+        </tr>
+        <tr>
+          <td class="match-td">必ずもらえて、薬天市場、薬天トラベルなどでお得に使える！</td>
+        </tr>
+
+        <tr>
+          <td class="match-td col-xs-4 text-center" rowspan="2">ロゴ</td>
+          <td class="match-td col-xs-8"><a href="" style="font-size:120%; color:#01a108; font-weight:bold;">に交換</a></td>
+        </tr>
+        <tr>
+          <td class="match-td">キャッチコピー</td>
+        </tr>
+
+        <tr>
+          <td class="match-td col-xs-4 text-center" rowspan="2">ロゴ</td>
+          <td class="match-td col-xs-8"><a href="" style="font-size:120%; color:#01a108; font-weight:bold;">に交換</a></td>
+        </tr>
+        <tr>
+          <td class="match-td">キャッチコピー</td>
+        </tr>
+
+      </table>
+    </div><!-- table-responsive -->
+  </div>
+
+
+
 
 </div>
-
-
 
 
 <footer></footer>
