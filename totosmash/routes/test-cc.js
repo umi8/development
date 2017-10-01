@@ -43,4 +43,45 @@ router.get('/send/:id', function(req, res, next) {
   });
 });
 
+// settle1
+router.get('/settle1', function(req, res, next) {
+  var fcq = fc.invoke('settle1', '');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('settled1.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
+// settle2
+router.get('/settle2', function(req, res, next) {
+  var fcq = fc.invoke('settle2', '');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('settled2.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
+// bet
+// bet
+router.get('/bet/:id', function(req, res, next) {
+  var player = req.params.id;
+  var fcq = fc.invoke('invoke', 'Beppu', player, '10');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('Beppu bet 10 coin on ' + player + '.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
 module.exports = router;
