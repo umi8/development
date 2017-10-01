@@ -40,6 +40,10 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryAll(APIstub)
 	} else if function == "invoke" {
 		return s.invoke(APIstub, args)
+	} else if function == "settle1" {
+		return s.settle1(APIstub)
+	} else if function == "settle2" {
+		return s.settle2(APIstub)
 	} else if function == "createUser" {
 		return s.createUser(APIstub, args)
 	} else if function == "initLedger" {
@@ -113,6 +117,80 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	APIstub.PutState(bob, []byte(strconv.Itoa(bobVal)))
 	APIstub.PutState(userA, []byte(strconv.Itoa(userAVal)))
 
+	// Player
+	var player1 = "Nadal"
+	var player1Val = 0
+	APIstub.PutState(player1, []byte(strconv.Itoa(player1Val)))
+	var player2 = "Nishikori"
+	var player2Val = 0
+	APIstub.PutState(player2, []byte(strconv.Itoa(player2Val)))
+	
+	// Bookmaker
+	var bookmaker = "Bookmaker" // 胴元
+	var bookmakerVal = 0
+	APIstub.PutState(bookmaker, []byte(strconv.Itoa(bookmakerVal)))
+
+	// Bet
+	s.invoke(APIstub, []string{alice, player1, "100"})
+	s.invoke(APIstub, []string{bob, player2, "100"})
+
+	return shim.Success(nil)
+}
+
+func (s *SmartContract) settle1(APIstub shim.ChaincodeStubInterface) sc.Response {
+	var player1, player2 string    // Entities
+	var player1Val, player2Val int // Asset holdings
+
+	player1 = "Nadal"
+	player1Valbytes, err := APIstub.GetState(player1)
+	if err != nil {
+		return shim.Error("Failed to get from Entity state")
+	}
+	if player1Valbytes == nil {
+		return shim.Error("From Entity not found")
+	}
+	player1Val, _ = strconv.Atoi(string(player1Valbytes))
+	
+	player2 = "Nishikori"
+	player2Valbytes, err := APIstub.GetState(player2)
+	if err != nil {
+		return shim.Error("Failed to get from Entity state")
+	}
+	if player2Valbytes == nil {
+		return shim.Error("From Entity not found")
+	}
+	player2Val, _ = strconv.Atoi(string(player2Valbytes))
+	
+	fmt.Printf("%s : %d\n", player1, player1Val)
+	fmt.Printf("%s : %d\n", player2, player2Val)
+
+	var bookmaker = "Bookmaker"
+	s.invoke(APIstub, []string{player1, bookmaker, strconv.Itoa(player1Val)})
+	s.invoke(APIstub, []string{player2, bookmaker, strconv.Itoa(player2Val)})
+	
+	return shim.Success(nil)
+}
+
+func (s *SmartContract) settle2(APIstub shim.ChaincodeStubInterface) sc.Response {
+	var bookmaker string // Entities
+	var bookmakerVal int // Asset holdings
+
+	bookmaker = "Bookmaker"
+	bookmakerValbytes, err := APIstub.GetState(bookmaker)
+	if err != nil {
+		return shim.Error("Failed to get from Entity state")
+	}
+	if bookmakerValbytes == nil {
+		return shim.Error("From Entity not found")
+	}
+	bookmakerVal, _ = strconv.Atoi(string(bookmakerValbytes))
+	
+	fmt.Printf("%s : %d\n", bookmaker, bookmakerVal)
+
+	var settleVal = bookmakerVal / 2
+	s.invoke(APIstub, []string{bookmaker, "Alice", strconv.Itoa(settleVal)})
+	s.invoke(APIstub, []string{bookmaker, "Beppu", strconv.Itoa(settleVal)})
+
 	return shim.Success(nil)
 }
 
@@ -156,7 +234,9 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 		return shim.Error("Invalid transaction amount,sender's value is short")
 	}
 	receiverVal = receiverVal + txValue
-	fmt.Printf("sender = %d, receiver = %d\n", senderVal, receiverVal)
+
+	fmt.Printf("%s から %s へ %d 円 送金します。\n", sender, receiver, txValue)
+	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal, receiver, receiverVal)
 
 	// Write the state back to the ledger
 	err = APIstub.PutState(sender, []byte(strconv.Itoa(senderVal)))
