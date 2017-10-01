@@ -40,6 +40,13 @@ http://localhost:3000/TS/query/Beppu
 
 invokeを実行
 http://localhost:3000/test-cc/send/10
+ Alice から Bob に 10 送金する。
 
+http://localhost:3000/test-cc/bet/Nishikori
+ Beppu が Nishikori に 10 べットする。
 
+http://localhost:3000/test-cc/settle1
+ Nadal と Nishikori の全額を Bookmaker に送金する。
 
+http://localhost:3000/test-cc/settle2
+ Boookmaker の全額を２等分して Alice と Beppu に送金する。
