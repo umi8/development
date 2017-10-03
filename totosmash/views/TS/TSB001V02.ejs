@@ -13,6 +13,50 @@
     <script src="../libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="../javascripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready( function(){
+        loadPoints();
+    });
+    function loadPoints(){
+    	$.ajax({	
+    		url:'query/<%= locals.inputId %>', // 通信先のURL
+    		type:'GET',		// 使用するHTTPメソッド (GET/ POST)
+    		data:'', // 送信するデータ
+    		dataType:'text', // 応答のデータの種類 
+    						// (xml/html/script/json/jsonp/text)
+    		timeout:1000, 		// 通信のタイムアウトの設定(ミリ秒)
+
+    		// 2. doneは、通信に成功した時に実行される
+    		//  引数のdata1は、通信で取得したデータ
+    		//  引数のtextStatusは、通信結果のステータス
+    		//  引数のjqXHRは、XMLHttpRequestオブジェクト
+    		}).done(function(data1,textStatus,jqXHR) {
+                                console.log(jqXHR.status); //jqXHR.statusを表示
+                                console.log(textStatus); //textStatusを表示
+
+    				// 3. キーを指定して値を表示 
+    				$("#myPoints").html(data1);
+
+    				// 4. オブジェクトをJSON形式の文字列に変換
+    				//var data2 = JSON.stringify(data1);
+    				//console.log(data2); //コンソールにJSON形式で表示される
+
+
+    		// 6. failは、通信に失敗した時に実行される
+    		}).fail(function(jqXHR, textStatus, errorThrown ) {
+                                console.log(jqXHR.status); //jqXHR.statusを表示
+                                console.log(textStatus); //textStatusを表示
+                                console.log(errorThrown); //errorThrownを表示
+
+    		// 7. alwaysは、成功/失敗に関わらず実行される
+    		}).always(function(){
+                                console.log("complete"); //表示3
+    				
+    	});
+    }
+    </script>
+
   </head>
   <body>
 
@@ -20,7 +64,7 @@
 
 <div class="container">
 
-    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></p>
+    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></span></p>
 <% /*
   <div class="panel table-responsive">
     <div class="table-responsive">
@@ -90,6 +134,19 @@
   </div>
  */ %>
 
+
+        <div id="alert" class="alert alert-info fade in" style="display:none;">
+            <a href="#" class="close" data-dismiss="alert"
+                aria-label="close">×</a>
+           BET 完了しました 
+        </div>
+
+        <div id="alert_error" class="alert alert-danger fade in" style="display:none;">
+            <a href="#" class="close" data-dismiss="alert"
+                aria-label="close">×</a>
+           BET 処理に失敗しました 
+        </div>
+
   <div class="panel table-responsive">
     <div class="table-responsive">
       <table class="table">
@@ -112,11 +169,11 @@
         </tr>
         <tr>
           <td class="bg-success" style="vertical-align:middle;">Kei Nishikori</td>
-          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Kei Nishikori">BET</button></td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="Nishikori" data-player="Kei Nishikori">BET</button></td>
         </tr>
         <tr>
           <td class="bg-success" style="vertical-align:middle;">Yuichi Sugita</td>
-          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Yuichi Sugita">BET</button></td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="Nadal" data-player="Yuichi Sugita">BET</button></td>
         </tr>
 
         <!-- 3試合目 -->
@@ -172,7 +229,7 @@
                         </div>
                         <!-- 6.モーダルのフッタ -->
                         <div class="modal-footer" style="text-align:center;">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="bet_cancel">Cancel</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" id="bet_yes">BET</button>
                         </div>
                     </div>
@@ -182,10 +239,11 @@
 
          <!-- hidden -->
          <div id="hiddendiv">
-           <form:form id="hiddenform" action="/TS/TSB001V02">
+           <form id="hiddenform" action="/TS/bet" method="GET">
              <input id="bet_player_id" name="bet_player_id" type="hidden" value=""/>
              <input id="bet_usre_id" name="bet_user_id" type="hidden" value="<%= locals.inputId %>"/>
-           </form:form>
+             <input id="bet_point" name="bet_point" type="hidden" value="100"/>
+           </form>
          </div>
 
 <script type="text/javascript">
@@ -204,11 +262,71 @@ $(document).ready(function(){
 
   $('#bet_yes').on('click',function(){
     $('#hiddenform').submit();
-  })
+  });
 
+    $('#hiddenform').submit(function(event){
+      // HTMLでの送信をキャンセル
+      event.preventDefault();
+   
+      // 操作対象のフォーム要素を取得
+      var $form = $(this);
+   
+      // 送信ボタンを取得
+      var $button = $('#bet_yes');
+      var $button_cancel = $('#bet_cancel');
+
+      var player_id = $('#bet_player_id').val();
+
+      // 送信
+      $.ajax({
+          url: 'bet/'+player_id,
+          //url: $form.attr('action'),
+          type: $form.attr('method'),
+          //data: $form.serialize(),
+          timeout: 10000,  // 単位はミリ秒
+   
+          // 送信前
+          beforeSend: function(xhr, settings) {
+              // ボタンを無効化し、二重送信を防止
+              $button.attr('disabled', true);
+              $button_cancel.attr('disabled', true);
+          },
+          // 応答後
+          complete: function(xhr, textStatus) {
+              // ボタンを有効化し、再送信を許可
+              $button.attr('disabled', false);
+              $button_cancel.attr('disabled', false);
+          },
+   
+          // 通信成功時の処理
+          success: function(result, textStatus, xhr) {
+              // 入力値を初期化
+              $form[0].reset();
+               
+              console.log('OK');
+              console.log(result);
+
+              $('#modal-bet').modal('hide');
+              loadPoints();
+              $('#alert').show();
+              //location.reload(); //リロード
+          },
+   
+          // 通信失敗時の処理
+          error: function(xhr, textStatus, error) {
+              console.log('NG...');
+              console.log(xhr);
+              console.log(textStatus);
+              console.log(error);
+
+              $('#modal-bet').modal('hide');
+              loadPoints();
+              $('#alert_error').show();
+          }
+      });
+    });
 });
   </script>
-
 
 
 

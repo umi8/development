@@ -138,5 +138,23 @@ router.get('/query/:id', function(req, res, next) {
   });
 });
 
+// bet
+router.get('/bet/:id', function(req, res, next) {
+  var user = 'Beppu'; //Beppu
+  var player = req.params.id; //Nishikori
+  var point = '100'; //100
+  console.log(user);
+  console.log(player);
+  console.log(point);
+  var fcq = fc.invoke('invoke', 'Beppu', player, point);
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('Beppu bet 100 coin on ' + player + '.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
 
 module.exports = router;
