@@ -64,7 +64,7 @@
 
 <div class="container">
 
-    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></span></p>
+    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></p>
 <% /*
   <div class="panel table-responsive">
     <div class="table-responsive">
@@ -135,13 +135,13 @@
  */ %>
 
 
-        <div id="alert" class="alert alert-info fade in" style="display:none;">
+        <div id="alert" class="alert alert-info" style="display:none;">
             <a href="#" class="close" data-dismiss="alert"
                 aria-label="close">×</a>
            BET 完了しました 
         </div>
 
-        <div id="alert_error" class="alert alert-danger fade in" style="display:none;">
+        <div id="alert_error" class="alert alert-danger" style="display:none;">
             <a href="#" class="close" data-dismiss="alert"
                 aria-label="close">×</a>
            BET 処理に失敗しました 
@@ -172,8 +172,8 @@
           <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="Nishikori" data-player="Kei Nishikori">BET</button></td>
         </tr>
         <tr>
-          <td class="bg-success" style="vertical-align:middle;">Yuichi Sugita</td>
-          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="Nadal" data-player="Yuichi Sugita">BET</button></td>
+          <td class="bg-success" style="vertical-align:middle;">Rafael Nadal</td>
+          <td class="bg-success text-center" style="vertical-align:middle; padding: 3px 1px;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="Nadal" data-player="Rafael Nadal">BET</button></td>
         </tr>
 
         <!-- 3試合目 -->
@@ -224,7 +224,7 @@
                         <div class="modal-body">
                             <span id="bet_player" class="text-primary"></span><br>
                             Match Winner<br>
-                            Kei Nishikori vs Yuichi Sugita<br>
+                            Kei Nishikori vs Rafael Nadal<br>
                             100 ポイント
                         </div>
                         <!-- 6.モーダルのフッタ -->
@@ -308,7 +308,10 @@ $(document).ready(function(){
 
               $('#modal-bet').modal('hide');
               loadPoints();
-              $('#alert').show();
+              $('#alert').fadeIn("slow");
+              //setTimeout(function(){
+              //  $("#alert").fadeOut("slow");
+              //},5000);
               //location.reload(); //リロード
           },
    
@@ -321,7 +324,11 @@ $(document).ready(function(){
 
               $('#modal-bet').modal('hide');
               loadPoints();
-              $('#alert_error').show();
+              $('#alert_error').fadeIn("slow");
+              //setTimeout(function(){
+              //  $("#alert_error").fadeOut("slow");
+              //},5000);
+              //$('#alert_error').show();
           }
       });
     });
