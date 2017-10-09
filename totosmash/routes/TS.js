@@ -60,10 +60,10 @@ router.post('/TSP001V01', function(req, res, next) {
                                        } });
 });
 
-router.post('/TSR001V01', function(req, res, next) {
-  res.render('TS/TSR001V01', { locals: { inputId : 'Beppu'
-                                       } });
-});
+//router.post('/TSR001V01', function(req, res, next) {
+//  res.render('TS/TSR001V01', { locals: { inputId : 'Beppu'
+//                                       } });
+//});
 
 router.post('/TSR001V02', function(req, res, next) {
   res.render('TS/TSR001V02', { locals: { inputId : 'Beppu'
@@ -102,10 +102,10 @@ router.get('/TSP001V01', function(req, res, next) {
                                        } });
 });
 
-router.get('/TSR001V01', function(req, res, next) {
-  res.render('TS/TSR001V01', { locals: { inputId : 'Beppu'
-                                       } });
-});
+//router.get('/TSR001V01', function(req, res, next) {
+//  res.render('TS/TSR001V01', { locals: { inputId : 'Beppu'
+//                                       } });
+//});
 
 router.get('/TSR001V02', function(req, res, next) {
   res.render('TS/TSR001V02', { locals: { inputId : 'Beppu'

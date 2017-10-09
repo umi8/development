@@ -30,6 +30,9 @@ app.use('/', index);
 app.use('/TS', ts);
 app.use('/test-cc', testcc);
 
+var myfile = require('./routes/TSR001V01');
+app.use('/TS/TSR001V01', myfile);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
