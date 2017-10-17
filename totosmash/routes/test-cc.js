@@ -70,13 +70,52 @@ router.get('/settle2', function(req, res, next) {
 });
 
 // bet
-// bet
 router.get('/bet/:id', function(req, res, next) {
   var player = req.params.id;
   var fcq = fc.invoke('invoke', 'Beppu', player, '10');
   fcq.then(function(result) {
     console.log('result=', result);
     res.send('Beppu bet 10 coin on ' + player + '.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
+// reset 
+router.get('/reset', function(req, res, next) {
+  var fcq = fc.invoke('reset', '');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('reset.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
+// settle
+router.get('/settle', function(req, res, next) {
+  var fcq = fc.invoke('settle', '');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('settled.');
+  }).catch(function(err) {
+    console.log('err=', err);
+  }).then(function() {
+    console.log('finish.');
+  });
+});
+
+
+// initBet 
+router.get('/initBet', function(req, res, next) {
+  var fcq = fc.invoke('initBet', '');
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.send('reset.');
   }).catch(function(err) {
     console.log('err=', err);
   }).then(function() {

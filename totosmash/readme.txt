@@ -50,3 +50,11 @@ http://localhost:3000/test-cc/settle1
 
 http://localhost:3000/test-cc/settle2
  Boookmaker の全額を２等分して Alice と Beppu に送金する。
+
+http://localhost:3000/test-cc/settle
+ 試合結果を確定し、AliceとBeppuにBookmakerから送金する 
+ settle1,settle2の処理を一括で行なう（ハードコード）
+
+http://localhost:3000/test-cc/reset
+ 初期状態に戻すメソッド（ポイント無くなったら呼び出せばOK）
+

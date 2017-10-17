@@ -40,12 +40,18 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.queryAll(APIstub)
 	} else if function == "invoke" {
 		return s.invoke(APIstub, args)
+	} else if function == "settle" {
+		return s.settle(APIstub)
 	} else if function == "settle1" {
 		return s.settle1(APIstub)
 	} else if function == "settle2" {
 		return s.settle2(APIstub)
 	} else if function == "createUser" {
 		return s.createUser(APIstub, args)
+	} else if function == "reset" {
+		return s.reset(APIstub)
+	} else if function == "initBet" {
+		return s.initBet(APIstub)
 	} else if function == "initLedger" {
 		return s.initLedger(APIstub)
 	}
@@ -125,17 +131,38 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	var player2Val = 0
 	APIstub.PutState(player2, []byte(strconv.Itoa(player2Val)))
 	
-	// Bookmaker
-	var bookmaker = "Bookmaker" // 胴元
+	// Game 
+	var bookmaker = "Game20171117a" // 胴元
 	var bookmakerVal = 0
 	APIstub.PutState(bookmaker, []byte(strconv.Itoa(bookmakerVal)))
 
 	// Bet
-	s.invoke(APIstub, []string{alice, player1, "100"})
-	s.invoke(APIstub, []string{bob, player2, "100"})
+	//s.invoke(APIstub, []string{alice, player2, "100"}) // Nishikori
+	//s.invoke(APIstub, []string{bob, player1, "100"})
 
 	return shim.Success(nil)
 }
+
+func (s *SmartContract) initBet(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+	// Bet
+	s.invoke(APIstub, []string{"Alice", "Nishikori", "100"}) // Nishikori
+	s.invoke(APIstub, []string{"Bob"  , "Nadal"    , "100"})
+
+	return shim.Success(nil)
+}
+
+
+func (s *SmartContract) settle(APIstub shim.ChaincodeStubInterface) sc.Response {
+        APIstub.PutState("Alice"        , []byte("250"))
+        APIstub.PutState("Bob"          , []byte("0"))
+        APIstub.PutState("Beppu"        , []byte("350"))
+        APIstub.PutState("Nadal"        , []byte("0"))
+        APIstub.PutState("Nishikori"    , []byte("0"))
+        APIstub.PutState("Game20171117a", []byte("0"))
+	return shim.Success(nil)
+}
+
 
 func (s *SmartContract) settle1(APIstub shim.ChaincodeStubInterface) sc.Response {
 	var player1, player2 string    // Entities
@@ -164,9 +191,11 @@ func (s *SmartContract) settle1(APIstub shim.ChaincodeStubInterface) sc.Response
 	fmt.Printf("%s : %d\n", player1, player1Val)
 	fmt.Printf("%s : %d\n", player2, player2Val)
 
-	var bookmaker = "Bookmaker"
+	var bookmaker = "Game20171117a"
 	s.invoke(APIstub, []string{player1, bookmaker, strconv.Itoa(player1Val)})
 	s.invoke(APIstub, []string{player2, bookmaker, strconv.Itoa(player2Val)})
+
+
 	
 	return shim.Success(nil)
 }
@@ -175,7 +204,7 @@ func (s *SmartContract) settle2(APIstub shim.ChaincodeStubInterface) sc.Response
 	var bookmaker string // Entities
 	var bookmakerVal int // Asset holdings
 
-	bookmaker = "Bookmaker"
+	bookmaker = "Game20171117a"
 	bookmakerValbytes, err := APIstub.GetState(bookmaker)
 	if err != nil {
 		return shim.Error("Failed to get from Entity state")
@@ -235,7 +264,7 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 	}
 	receiverVal = receiverVal + txValue
 
-	fmt.Printf("%s から %s へ %d 円 送金します。\n", sender, receiver, txValue)
+	fmt.Printf("%s から %s へ %d ポイント 送金します。\n", sender, receiver, txValue)
 	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal, receiver, receiverVal)
 
 	// Write the state back to the ledger
@@ -265,6 +294,19 @@ func (s *SmartContract) createUser(APIstub shim.ChaincodeStubInterface, args []s
 
 	return shim.Success(nil)
 }
+
+func (s *SmartContract) reset(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+	APIstub.PutState("Alice"        , []byte("100"))
+	APIstub.PutState("Bob"          , []byte("0"))
+	APIstub.PutState("Beppu"        , []byte("300"))
+	APIstub.PutState("Nadal"        , []byte("100"))
+	APIstub.PutState("Nishikori"    , []byte("100"))
+	APIstub.PutState("Game20171117a", []byte("0"))
+	return shim.Success(nil)
+
+}
+
 
 // The main function is only relevant in unit test mode. Only included here for completeness.
 func main() {
