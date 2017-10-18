@@ -118,8 +118,24 @@ router.get('/TST001V01', function(req, res, next) {
 });
 
 router.get('/TSU001V01', function(req, res, next) {
-  res.render('TS/TSU001V01', { locals: { inputId : 'Beppu'
-                                       } });
+  var name = "Beppu";
+
+  var fcq = fc.query('queryValue', name);
+
+  fcq.then(function(result) {
+//    console.log('result=', result);
+    res.render('TS/TSU001V01', { locals: { inputId : name
+                                           ,myPoints : result
+                                         } });
+  }).catch(function(err) {
+    console.log('err=', err);
+    res.render('TS/TSU001V01', { locals: { inputId : 'Beppu'
+                                         } });
+
+  }).then(function() {
+    console.log('finish.');
+  });
+
 });
 
 
