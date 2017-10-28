@@ -16,7 +16,7 @@
 
     <script type="text/javascript">
     $(document).ready( function(){
-        loadPoints();
+        //loadPoints();
     });
     function loadPoints(){
     	$.ajax({	
@@ -64,75 +64,7 @@
 
 <div class="container">
 
-    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"></span></p>
-<% /*
-  <div class="panel table-responsive">
-    <div class="table-responsive">
-      <table class="table">
-        <!-- 1試合目 -->
-        <tr>
-          <th class="match-th">ATP St Petersburg</th>
-          <th class="match-th text-center">1</th>
-          <th class="match-th text-center">2</th>
-        </tr>
-        <tr>
-          <td class="bg-success">Damir Dzumhur</td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
-        </tr>
-        <tr>
-          <td class="bg-success">Liam Broady</td>
-        </tr>
-        
-        <!-- 2試合目 -->
-        <tr>
-          <th class="match-th">WTA B-Con Plaza</th>
-          <th class="match-th text-center">1</th>
-          <th class="match-th text-center">2</th>
-        </tr>
-        <tr>
-          <td class="bg-success">Kei Nishikori</td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Kei Nishikori">BET</button></td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Yuichi Sugita">BET</button></td>
-        </tr>
-        <tr>
-          <td class="bg-success">Yuichi Sugita</td>
-        </tr>
-
-        <!-- 3試合目 -->
-        <tr>
-          <th class="match-th">WTA Guangzhou</th>
-          <th class="match-th text-center">1</th>
-          <th class="match-th text-center">2</th>
-        </tr>
-        <tr>
-          <td class="bg-success">Yanina Wickmayer</td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
-        </tr>
-        <tr>
-          <td class="bg-success">Aleksandra Krunic</td>
-        </tr>
-
-        <!-- 4試合目 -->
-        <tr>
-          <th class="match-th">WTA Tokyo</th>
-          <th class="match-th text-center">1</th>
-          <th class="match-th text-center">2</th>
-        </tr>
-        <tr>
-          <td class="bg-success">Caroline Wozniacki</td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player1" data-player="Damir Dzumhur">BET</button></td>
-          <td rowspan="2" class="bg-success text-center" style="vertical-align:middle;"><button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-bet" data-whatever="player2" data-player="Liam Broady">BET</button></td>
-        </tr>
-        <tr>
-          <td class="bg-success">Dominika Cibulkova</td>
-        </tr>
-
-      </table>
-    </div><!-- table-responsive -->
-  </div>
- */ %>
+    <p class="text-right"><span class="beppu_name"><%= locals.inputId %></span> さんの保有ポイント：<span id="myPoints" class="beppu_point"><%= locals.myPoints %></span></p>
 
 
         <div id="alert" class="alert alert-info" style="display:none;">
@@ -222,10 +154,10 @@
                         -->
                         <!-- 5.モーダルのボディ -->
                         <div class="modal-body">
-                            <span id="bet_player" class="text-primary"></span><br>
-                            Match Winner<br>
+                            <span id="bet_player" class="text-primary" style="font-weight:bold; font-size: 1.4em;"></span><br>
+                            <span style="font-weight:bold;">Match Winner</span><br>
                             Kei Nishikori vs Rafael Nadal<br>
-                            100 ポイント
+                            <span style="font-weight:bold; font-size:1.2em;">100</span> <span style="font-size:0.8em;">ポイント</span>
                         </div>
                         <!-- 6.モーダルのフッタ -->
                         <div class="modal-footer" style="text-align:center;">
@@ -239,7 +171,7 @@
 
          <!-- hidden -->
          <div id="hiddendiv">
-           <form id="hiddenform" action="/TS/bet" method="GET">
+           <form id="hiddenform" action="/TS/bet" method="POST">
              <input id="bet_player_id" name="bet_player_id" type="hidden" value=""/>
              <input id="bet_usre_id" name="bet_user_id" type="hidden" value="<%= locals.inputId %>"/>
              <input id="bet_point" name="bet_point" type="hidden" value="100"/>
@@ -260,6 +192,34 @@ $(document).ready(function(){
     $("#bet_player_id").attr("value",bet_player_id);
   });
 
+    function getBetDate() {
+        var dt = new Date();
+        //年
+        var year = dt.getFullYear();
+        //月
+        //1月が0、12月が11。そのため+1をする。
+        var month = dt.getMonth()+1;
+        //日
+        var date = dt.getDate();
+        //曜日
+        //日曜が0、土曜日が6。配列を使い曜日に変換する。
+        dateT = ["日","月","火","水","木","金","土"];
+        var day = dateT[dt.getDay()];
+        //時
+        var hours = dt.getHours();
+        if(hours < 10) { hours = '0' + hours; }
+        //分
+        var minutes = dt.getMinutes();
+        if(minutes < 10) { minutes = '0' + minutes; }
+        //秒
+        var seconds = dt.getSeconds();
+        if(seconds < 10) { seconds = '0' + seconds; }
+
+        var result = year+'/'+month+"/"+date+" "+hours+":"+minutes+":"+seconds;
+        return result;
+    }
+
+
   $('#bet_yes').on('click',function(){
     $('#hiddenform').submit();
   });
@@ -276,14 +236,22 @@ $(document).ready(function(){
       var $button_cancel = $('#bet_cancel');
 
       var player_id = $('#bet_player_id').val();
+      var betDate = getBetDate();
+      var JSONdata = {
+        id: player_id,
+        betDate: betDate
+      };
 
       // 送信
       $.ajax({
-          url: 'bet/'+player_id,
+          url: 'bet',
+          //url: 'bet/'+player_id,
           //url: $form.attr('action'),
           type: $form.attr('method'),
-          //data: $form.serialize(),
-          timeout: 10000,  // 単位はミリ秒
+          contentType: 'application/JSON',
+          dataType: 'JSON',
+          data: JSON.stringify(JSONdata),
+          timeout: 20000,  // 単位はミリ秒
    
           // 送信前
           beforeSend: function(xhr, settings) {
@@ -309,6 +277,7 @@ $(document).ready(function(){
               $('#modal-bet').modal('hide');
               $('#alert').fadeIn("slow");
               // ポイント再表示、タイミングによってはBET完了後に最新ポイント反映されていないため、BET後は一定期間クエリーするようにしています
+              loadPoints();
               var timerId = setInterval(function(){
                 loadPoints();
               },2000);
@@ -330,13 +299,14 @@ $(document).ready(function(){
 
               $('#modal-bet').modal('hide');
               $('#alert_error').fadeIn("slow");
+              loadPoints();
               // ポイント再表示、タイミングによってはBET完了後に最新ポイント反映されていないため、BET後は一定期間クエリーするようにしています
-              var timerId = setInterval(function(){
-                loadPoints();
-              },2000);
-              setTimeout(function(){
-                clearInterval(timerId);
-              },20000);
+              //var timerId = setInterval(function(){
+              //  loadPoints();
+              //},2000);
+              //setTimeout(function(){
+              //  clearInterval(timerId);
+              //},20000);
               //setTimeout(function(){
               //  $("#alert_error").fadeOut("slow");
               //},5000);

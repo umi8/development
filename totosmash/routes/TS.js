@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var fc = require('./fabric-coin');
+var test = require('./test');
+
+//var betDate = '2017/11/17 10:00:24';
 
 /* POST TS */
 router.post('/', function(req, res, next) {
@@ -22,18 +25,31 @@ router.post('/TST001V01', function(req, res) {
   }
 
   //execute query.js
-var test = require('./test.js');
-console.log(test.hello('Tomohide'));
+//var test = require('./test.js');
+//console.log(test.hello('Tomohide'));
 
-  var mypoints = 0;
+//  var mypoints = 0;
 
-  myPoints = 400;
+//  myPoints = 400;
 
-  //response Top Page
-  res.render('TS/TST001V01', { locals: { inputId : req.body.inputId 
-                                        ,myPoints : myPoints
-                                        ,test : 'test'
-                                       } });
+  var name = req.body.inputId;
+
+  var fcq = fc.query('queryValue', name);
+
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.render('TS/TST001V01', { locals: { inputId : name
+                                           ,myPoints : result
+                                         } });
+  }).catch(function(err) {
+    console.log('err=', err);
+    res.render('TS/TST001V01', { locals: { inputId : 'Beppu'
+                                         } });
+
+  }).then(function() {
+    console.log('finish.');
+  });
+
 
 });
 
@@ -41,8 +57,26 @@ console.log(test.hello('Tomohide'));
 
 //////////////////////
 router.post('/TSB001V02', function(req, res, next) {
-  res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
-                                       } });
+  console.log(test.getBetDate());
+
+  var name = 'Beppu';
+
+  var fcq = fc.query('queryValue', name);
+
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.render('TS/TSB001V02', { locals: { inputId : name
+                                           ,myPoints : result
+                                         } });
+  }).catch(function(err) {
+    console.log('err=', err);
+    res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
+                                         } });
+
+  }).then(function() {
+    console.log('finish.');
+  });
+
 });
 
 router.post('/TSE001V01', function(req, res, next) {
@@ -83,8 +117,26 @@ router.post('/TSU001V01', function(req, res, next) {
 
 //Get (direct access for layout debug)
 router.get('/TSB001V02', function(req, res, next) {
-  res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
-                                       } });
+  console.log(test.getBetDate());
+
+  var name = 'Beppu';
+
+  var fcq = fc.query('queryValue', name);
+
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.render('TS/TSB001V02', { locals: { inputId : name
+                                           ,myPoints : result
+                                         } });
+  }).catch(function(err) {
+    console.log('err=', err);
+    res.render('TS/TSB001V02', { locals: { inputId : 'Beppu'
+                                         } });
+
+  }).then(function() {
+    console.log('finish.');
+  });
+
 });
 
 router.get('/TSE001V01', function(req, res, next) {
@@ -113,8 +165,25 @@ router.get('/TSR001V02', function(req, res, next) {
 });
 
 router.get('/TST001V01', function(req, res, next) {
-  res.render('TS/TST001V01', { locals: { inputId : 'Beppu'
-                                       } });
+
+  var name = 'Beppu';
+
+  var fcq = fc.query('queryValue', name);
+
+  fcq.then(function(result) {
+    console.log('result=', result);
+    res.render('TS/TST001V01', { locals: { inputId : name
+                                           ,myPoints : result
+                                         } });
+  }).catch(function(err) {
+    console.log('err=', err);
+    res.render('TS/TST001V01', { locals: { inputId : 'Beppu'
+                                         } });
+
+  }).then(function() {
+    console.log('finish.');
+  });
+
 });
 
 router.get('/TSU001V01', function(req, res, next) {
@@ -154,18 +223,30 @@ router.get('/query/:id', function(req, res, next) {
   });
 });
 
+
 // bet
-router.get('/bet/:id', function(req, res, next) {
+//router.get('/bet/:id', function(req, res, next) {
+router.post('/bet', function(req, res, next) {
+  //console.log('betDate='+test.getBetDate());
+  //console.log('body='+JSON.stringify(req.body));
+  var params = req.body;
   var user = 'Beppu'; //Beppu
-  var player = req.params.id; //Nishikori
+  //var player = req.params.id; //Nishikori
+  var player = params.id;
+  var date = params.betDate; //bet日時
   var point = '100'; //100
-  console.log(user);
-  console.log(player);
-  console.log(point);
   var fcq = fc.invoke('invoke', 'Beppu', player, point);
   fcq.then(function(result) {
+    //betDate = date;
+    test.setBetDate(date);
     console.log('result=', result);
-    res.send('Beppu bet 100 coin on ' + player + '.');
+    //res.send('Beppu bet 100 coin on ' + player + '.');
+    var response = {
+      status  : 200,
+      success : 'Beppu bet 100 coin on ' + player + '.'
+    }
+    res.end(JSON.stringify(response));
+
   }).catch(function(err) {
     console.log('err=', err);
   }).then(function() {

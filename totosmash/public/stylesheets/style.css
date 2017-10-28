@@ -1,3 +1,16 @@
+body {
+  font-size: 22px;
+}
+
+.beppu_name {
+  font-weight: bold; 
+}
+
+.beppu_point {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
 .container {
   max-width: 800px; /* ç≈ëÂâ°ïù */
   width: 100%;
@@ -47,6 +60,7 @@
 .match-th {
   background-color: #808080;
   color: #FFF;
+  //font-size: 0.9em;
 }
 
 .match-td {
@@ -56,4 +70,8 @@
 .point-use-logo{
    height: 80px; 
    width : 80px;
+}
+
+.btn {
+  font-size: 1.1em;
 }

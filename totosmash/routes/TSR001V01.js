@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fc = require('./fabric-coin');
+var test = require('./test');
 
 router.post('/', function(req, res, next) {
   res.render('TS/TSR001V01', { locals: { inputId : 'Beppu'
@@ -8,6 +9,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
+  var betDate = test.getBetDate();
 
 //  var name = param;
   var name = "Beppu";
@@ -18,6 +20,7 @@ router.get('/', function(req, res, next) {
 //    console.log('result=', result);
     res.render('TS/TSR001V01', { locals: { inputId : name
                                            ,myPoints : result
+                                           ,betDate : betDate
                                          } });
   }).catch(function(err) {
     console.log('err=', err);

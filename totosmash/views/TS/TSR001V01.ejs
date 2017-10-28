@@ -20,7 +20,7 @@
 
 <div class="container">
 
-    <p class="text-right"><%= locals.inputId %> さんの保有ポイント：<span id="myPoints"><%= locals.myPoints %></span></p>
+    <p class="text-right"><span class="beppu_name"><%= locals.inputId %></span> さんの保有ポイント：<span id="myPoints" class="beppu_point"><%= locals.myPoints %></span></p>
 
   <div class="panel table-responsive">
     <div>
@@ -28,8 +28,8 @@
         <tr>
           <th class="match-th col-xs-5">BET結果一覧</th>
           <th class="match-th col-xs-3">BET日時</th>
-          <th class="match-th col-xs-2 text-right">BETポイント</th>
-          <th class="match-th col-xs-2 text-right">獲得ポイント</th>
+          <th class="match-th col-xs-2 text-right">BET<br/><span style="font-size: 0.8em;">ポイント</span></th>
+          <th class="match-th col-xs-2 text-right">獲得<br/><span style="font-size: 0.8em;">ポイント</span></th>
         </tr>
 
 <!--for mock
@@ -55,18 +55,18 @@
 <!-- for iSUC Demo べたがき!! -->
         <tr>
 <% if (locals.myPoints == '200') { %>
-          <td class="match-td"><a href="TSR001V02" style="color:#01a108; font-weight:bold;">Nishikori</a></td>
-          <td class="match-td">2017/11/17 10:00:24</td>
-          <td class="match-td text-right">100</td>
-          <td class="match-td text-right">-</td>
+          <td class="match-td"><a href="TSR001V02" style="color:#01a108; font-weight:bold; font-size:1.2em;">Nishikori</a></td>
+          <td class="match-td"><span id="betDate"><%= locals.betDate %></span></td>
+          <td class="match-td text-right" style="font-size:1.4em;">100</td>
+          <td class="match-td text-right" style="font-size:1.4em;">-</td>
 <% } else if (locals.myPoints == '350') { %>
-          <td class="match-td"><a href="TSR001V02" style="color:#01a108; font-weight:bold;">Nishikori</a></td>
-          <td class="match-td">2017/11/17 10:00:24</td>
-          <td class="match-td text-right">100</td>
-          <td class="match-td text-right">150</td>
+          <td class="match-td"><a href="TSR001V02" style="color:#01a108; font-weight:bold; font-size:1.2em;">Nishikori</a></td>
+          <td class="match-td"><span id="betDate"><%= locals.betDate %></span></td>
+          <td class="match-td text-right" style="font-size:1.4em;">100</td>
+          <td class="match-td text-right" style="font-size:1.4em;">150</td>
 <% } else { %>
           <td class="match-td"><a href="TSR001V02" style="color:#01a108; font-weight:bold;"></a></td>
-          <td class="match-td"></td>
+          <td class="match-td">2017/11/17 10:00:24</td>
           <td class="match-td text-right"></td>
           <td class="match-td text-right"></td>
 <% } %>
@@ -81,6 +81,7 @@
 
   
 <footer></footer>
+
 
   </body>
 </html>
