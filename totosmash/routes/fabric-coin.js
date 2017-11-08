@@ -17,15 +17,15 @@ var options = {
     orderer_url: 'grpc://localhost:7050'
 };
 
-var channel = {};
-var client = null;
-var targets = [];
-var tx_id = null;
 
 /*
  * Query
  */
 exports.query = function() {
+  var channel = {};
+  var client = new hfc();
+  var targets = [];
+  var tx_id = null;
   if (arguments.length < 1) {
     var msg = "Parameter error.";
     console.error(msg);
@@ -102,6 +102,10 @@ exports.query = function() {
  * Invoke
  */
 exports.invoke = function() {
+  var channel = {};
+  var client = new hfc();
+  var targets = [];
+  var tx_id = null;
   if (arguments.length < 1) {
     var msg = "Parameter error.";
     console.error(msg);
@@ -254,6 +258,10 @@ exports.invoke = function() {
  * Query BlockChain Information
  */
 exports.queryBlock = function() {
+  var channel = {};
+  var client = new hfc();
+  var targets = [];
+  var tx_id = null;
   if (arguments.length < 2) {
     var msg = "Parameter error.";
     console.error(msg);
