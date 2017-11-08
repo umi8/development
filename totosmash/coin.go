@@ -112,6 +112,7 @@ func (s *SmartContract) queryAll(APIstub shim.ChaincodeStubInterface) sc.Respons
 }
 
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
+	fmt.Printf("-- initLedger\n")
 
 	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
     for i := 0; i < len(keys); i++ {
@@ -130,23 +131,47 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	var bobVal = 100
 	var userA = "Beppu"
 	var userAVal = 300
-
-	APIstub.PutState(alice, []byte(strconv.Itoa(aliceVal)))
-	APIstub.PutState(bob, []byte(strconv.Itoa(bobVal)))
-	APIstub.PutState(userA, []byte(strconv.Itoa(userAVal)))
+	
+	err := APIstub.PutState(alice, []byte(strconv.Itoa(aliceVal)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Alice")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState(bob, []byte(strconv.Itoa(bobVal)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Bob")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState(userA, []byte(strconv.Itoa(userAVal)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Beppu")
+		return shim.Error(err.Error())
+	}
 
 	// Player
 	var player1 = "Nadal"
 	var player1Val = 0
-	APIstub.PutState(player1, []byte(strconv.Itoa(player1Val)))
+	err = APIstub.PutState(player1, []byte(strconv.Itoa(player1Val)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nadal")
+		return shim.Error(err.Error())
+	}
 	var player2 = "Nishikori"
 	var player2Val = 0
-	APIstub.PutState(player2, []byte(strconv.Itoa(player2Val)))
+	err = APIstub.PutState(player2, []byte(strconv.Itoa(player2Val)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nishikori")
+		return shim.Error(err.Error())
+	}
 	
 	// Game 
 	var bookmaker = "Game20171117a" // 胴元
 	var bookmakerVal = 0
-	APIstub.PutState(bookmaker, []byte(strconv.Itoa(bookmakerVal)))
+	err = APIstub.PutState(bookmaker, []byte(strconv.Itoa(bookmakerVal)))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Game20171117a")
+		return shim.Error(err.Error())
+	}
 
 	// Bet
 	//s.invoke(APIstub, []string{alice, player2, "100"}) // Nishikori
@@ -156,6 +181,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 }
 
 func (s *SmartContract) initBet(APIstub shim.ChaincodeStubInterface) sc.Response {
+	fmt.Printf("-- initBet\n")
 
 	// Bet
 	s.invoke(APIstub, []string{"Alice", "Nishikori", "100"}) // Nishikori
@@ -166,7 +192,7 @@ func (s *SmartContract) initBet(APIstub shim.ChaincodeStubInterface) sc.Response
 
 
 func (s *SmartContract) settle(APIstub shim.ChaincodeStubInterface) sc.Response {
-	
+	fmt.Printf("-- settle\n")
 	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
     for i := 0; i < len(keys); i++ {
 		bytes, err := APIstub.GetState(keys[i])
@@ -177,13 +203,37 @@ func (s *SmartContract) settle(APIstub shim.ChaincodeStubInterface) sc.Response 
 			return shim.Error("From Entity not found")
 		}
 	}
-	
-        APIstub.PutState("Alice"        , []byte("250"))
-        APIstub.PutState("Bob"          , []byte("0"))
-        APIstub.PutState("Beppu"        , []byte("350"))
-        APIstub.PutState("Nadal"        , []byte("0"))
-        APIstub.PutState("Nishikori"    , []byte("0"))
-        APIstub.PutState("Game20171117a", []byte("0"))
+        
+	err := APIstub.PutState("Alice"        , []byte("250"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Alice")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Bob"          , []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Bob")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Beppu"        , []byte("350"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Beppu")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Nadal"        , []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nadal")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Nishikori"    , []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nishikori")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Game20171117a", []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Game20171117a")
+		return shim.Error(err.Error())
+	}
 	fmt.Printf("-- BETを締め切りました。\n")
 	fmt.Printf("%s から %s へ %d ポイント 送金します。\n", "Nishikori", "Game20171117a", 200)
 	fmt.Printf("%s から %s へ %d ポイント 送金します。\n", "Nadal", "Game20171117a", 100)
@@ -306,25 +356,25 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 	if err != nil {
 		return shim.Error("Invalid transaction amount, expecting a integer value")
 	}
-	senderVal2 := senderVal - txValue
-	if senderVal2 < 0 {
+	senderVal = senderVal - txValue
+	if senderVal < 0 {
 		return shim.Error("Invalid transaction amount,sender's value is short")
 	}
-	receiverVal2 := receiverVal + txValue
+	receiverVal = receiverVal + txValue
 
 	fmt.Printf("%s から %s へ %d ポイント 送金します。\n", sender, receiver, txValue)
-	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal2, receiver, receiverVal2)
+	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal, receiver, receiverVal)
 
 	// Write the state back to the ledger
-	err = APIstub.PutState(sender, []byte(strconv.Itoa(senderVal2)))
+	err = APIstub.PutState(sender, []byte(strconv.Itoa(senderVal)))
 	if err != nil {
-		fmt.Printf("err. PutState(%s,%s)\n", sender, strconv.Itoa(senderVal2))
+		fmt.Printf("err. PutState(%s,%s)\n", sender, strconv.Itoa(senderVal))
 		return shim.Error(err.Error())
 	}
 
-	err = APIstub.PutState(receiver, []byte(strconv.Itoa(receiverVal2)))
+	err = APIstub.PutState(receiver, []byte(strconv.Itoa(receiverVal)))
 	if err != nil {
-		fmt.Printf("err. PutState(%s,%s)\n", receiver, strconv.Itoa(receiverVal2))
+		fmt.Printf("err. PutState(%s,%s)\n", receiver, strconv.Itoa(receiverVal))
 		return shim.Error(err.Error())
 	}
 
@@ -346,6 +396,7 @@ func (s *SmartContract) createUser(APIstub shim.ChaincodeStubInterface, args []s
 }
 
 func (s *SmartContract) reset(APIstub shim.ChaincodeStubInterface) sc.Response {
+	fmt.Printf("-- reset\n")
 
 	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
     for i := 0; i < len(keys); i++ {
@@ -358,12 +409,37 @@ func (s *SmartContract) reset(APIstub shim.ChaincodeStubInterface) sc.Response {
 		}
 	}
 
-	APIstub.PutState("Alice"        , []byte("100"))
-	APIstub.PutState("Bob"          , []byte("0"))
-	APIstub.PutState("Beppu"        , []byte("300"))
-	APIstub.PutState("Nadal"        , []byte("100"))
-	APIstub.PutState("Nishikori"    , []byte("100"))
-	APIstub.PutState("Game20171117a", []byte("0"))
+	err := APIstub.PutState("Alice"        , []byte("100"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Alice")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Bob"          , []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Bob")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Beppu"        , []byte("300"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Beppu")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Nadal"        , []byte("100"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nadal")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Nishikori"    , []byte("100"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Nishikori")
+		return shim.Error(err.Error())
+	}
+	err = APIstub.PutState("Game20171117a", []byte("0"))
+	if err != nil {
+		fmt.Printf("err. PutState(%s)\n", "Game20171117a")
+		return shim.Error(err.Error())
+	}
+
 	return shim.Success(nil)
 
 }
