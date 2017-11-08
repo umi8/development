@@ -85,10 +85,17 @@ router.get('/bet/:id', function(req, res, next) {
 
 // reset 
 router.get('/reset', function(req, res, next) {
-  var fcq = fc.invoke('reset', '');
+  var fcq = fc.query('queryAll');
   fcq.then(function(result) {
-    console.log('result=', result);
-    res.send('reset.');
+    var fcq2 = fc.invoke('reset', '');
+    fcq2.then(function(result) {
+      console.log('result=', result);
+      res.send('reset.');
+    }).catch(function(err) {
+      console.log('err=', err);
+    }).then(function() {
+      console.log('finish.');
+    });
   }).catch(function(err) {
     console.log('err=', err);
   }).then(function() {
@@ -98,10 +105,17 @@ router.get('/reset', function(req, res, next) {
 
 // settle
 router.get('/settle', function(req, res, next) {
-  var fcq = fc.invoke('settle', '');
+  var fcq = fc.query('queryAll');
   fcq.then(function(result) {
-    console.log('result=', result);
-    res.send('settled.');
+    var fcq2 = fc.invoke('settle', '');
+    fcq2.then(function(result) {
+      console.log('result=', result);
+      res.send('settled.');
+    }).catch(function(err) {
+      console.log('err=', err);
+    }).then(function() {
+      console.log('finish.');
+    });
   }).catch(function(err) {
     console.log('err=', err);
   }).then(function() {
