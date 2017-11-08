@@ -112,6 +112,18 @@ func (s *SmartContract) queryAll(APIstub shim.ChaincodeStubInterface) sc.Respons
 }
 
 func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
+    for i := 0; i < len(keys); i++ {
+		bytes, err := APIstub.GetState(keys[i])
+		if err != nil {
+			return shim.Error("Failed to get from Entity state")
+		}
+		if bytes == nil {
+			fmt.Printf("Entity is null %s\n",keys[i])
+		}
+	}
+
 	var alice = "Alice"
 	var bob = "Bob"
 	var aliceVal = 200
@@ -154,6 +166,18 @@ func (s *SmartContract) initBet(APIstub shim.ChaincodeStubInterface) sc.Response
 
 
 func (s *SmartContract) settle(APIstub shim.ChaincodeStubInterface) sc.Response {
+	
+	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
+    for i := 0; i < len(keys); i++ {
+		bytes, err := APIstub.GetState(keys[i])
+		if err != nil {
+			return shim.Error("Failed to get from Entity state")
+		}
+		if bytes == nil {
+			return shim.Error("From Entity not found")
+		}
+	}
+	
         APIstub.PutState("Alice"        , []byte("250"))
         APIstub.PutState("Bob"          , []byte("0"))
         APIstub.PutState("Beppu"        , []byte("350"))
@@ -315,6 +339,17 @@ func (s *SmartContract) createUser(APIstub shim.ChaincodeStubInterface, args []s
 }
 
 func (s *SmartContract) reset(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+	var keys = []string{"Alice","Bob","Beppu","Nadal","Nishikori","Game20171117a"}
+    for i := 0; i < len(keys); i++ {
+		bytes, err := APIstub.GetState(keys[i])
+		if err != nil {
+			return shim.Error("Failed to get from Entity state")
+		}
+		if bytes == nil {
+			return shim.Error("From Entity not found")
+		}
+	}
 
 	APIstub.PutState("Alice"        , []byte("100"))
 	APIstub.PutState("Bob"          , []byte("0"))

@@ -25,7 +25,7 @@
     		data:'', // 送信するデータ
     		dataType:'text', // 応答のデータの種類 
     						// (xml/html/script/json/jsonp/text)
-    		timeout:1000, 		// 通信のタイムアウトの設定(ミリ秒)
+    		timeout:2000, 		// 通信のタイムアウトの設定(ミリ秒)
 
     		// 2. doneは、通信に成功した時に実行される
     		//  引数のdata1は、通信で取得したデータ
@@ -251,7 +251,7 @@ $(document).ready(function(){
           contentType: 'application/JSON',
           dataType: 'JSON',
           data: JSON.stringify(JSONdata),
-          timeout: 20000,  // 単位はミリ秒
+          timeout: 30000,  // 単位はミリ秒
    
           // 送信前
           beforeSend: function(xhr, settings) {
@@ -278,12 +278,12 @@ $(document).ready(function(){
               $('#alert').fadeIn("slow");
               // ポイント再表示、タイミングによってはBET完了後に最新ポイント反映されていないため、BET後は一定期間クエリーするようにしています
               loadPoints();
-              var timerId = setInterval(function(){
-                loadPoints();
-              },2000);
-              setTimeout(function(){
-                clearInterval(timerId);
-              },20000);
+              //var timerId = setInterval(function(){
+              //  loadPoints();
+              //},2000);
+              //setTimeout(function(){
+              //  clearInterval(timerId);
+              //},20000);
               //setTimeout(function(){
               //  $("#alert").fadeOut("slow");
               //},5000);
