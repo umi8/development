@@ -272,6 +272,7 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 	var txValue int                // Transaction value
 
 	if len(args) != 3 {
+		fmt.Printf("Incorrect number of arguments. Expecting 3\n")
 		return shim.Error("Incorrect number of arguments. Expecting 3")
 	}
 
@@ -280,18 +281,22 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 
 	senderValbytes, err := APIstub.GetState(sender)
 	if err != nil {
+		fmt.Printf("Failed to get to Entity state,%s\n", sender)
 		return shim.Error("Failed to get from Entity state")
 	}
 	if senderValbytes == nil {
+		fmt.Printf("From Entity not found,%s\n", sender)
 		return shim.Error("From Entity not found")
 	}
 	senderVal, _ = strconv.Atoi(string(senderValbytes))
 
 	receiverValbytes, err := APIstub.GetState(receiver)
 	if err != nil {
+		fmt.Printf("Failed to get to Entity state,%s\n", receiver)
 		return shim.Error("Failed to get to Entity state")
 	}
 	if receiverValbytes == nil {
+		fmt.Printf("To Entity not found,%s\n", receiver)
 		return shim.Error("To Entity not found")
 	}
 	receiverVal, _ = strconv.Atoi(string(receiverValbytes))
@@ -301,23 +306,25 @@ func (s *SmartContract) invoke(APIstub shim.ChaincodeStubInterface, args []strin
 	if err != nil {
 		return shim.Error("Invalid transaction amount, expecting a integer value")
 	}
-	senderVal = senderVal - txValue
-	if senderVal < 0 {
+	senderVal2 := senderVal - txValue
+	if senderVal2 < 0 {
 		return shim.Error("Invalid transaction amount,sender's value is short")
 	}
-	receiverVal = receiverVal + txValue
+	receiverVal2 := receiverVal + txValue
 
 	fmt.Printf("%s から %s へ %d ポイント 送金します。\n", sender, receiver, txValue)
-	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal, receiver, receiverVal)
+	fmt.Printf("%s = %d, %s = %d\n", sender, senderVal2, receiver, receiverVal2)
 
 	// Write the state back to the ledger
-	err = APIstub.PutState(sender, []byte(strconv.Itoa(senderVal)))
+	err = APIstub.PutState(sender, []byte(strconv.Itoa(senderVal2)))
 	if err != nil {
+		fmt.Printf("err. PutState(%s,%s)\n", sender, strconv.Itoa(senderVal2))
 		return shim.Error(err.Error())
 	}
 
-	err = APIstub.PutState(receiver, []byte(strconv.Itoa(receiverVal)))
+	err = APIstub.PutState(receiver, []byte(strconv.Itoa(receiverVal2)))
 	if err != nil {
+		fmt.Printf("err. PutState(%s,%s)\n", receiver, strconv.Itoa(receiverVal2))
 		return shim.Error(err.Error())
 	}
 
